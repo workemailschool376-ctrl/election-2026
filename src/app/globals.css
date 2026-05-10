@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+:root {
+  --background: #07071a;
+  --foreground: #ffffff;
+  --accent-indigo: #6366f1;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', var(--font-geist), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Vote number pulse on change */
+@keyframes votePop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.18); color: #a5b4fc; }
+  100% { transform: scale(1); }
+}
+.vote-pop {
+  animation: votePop 0.45s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* Tab glow */
+@keyframes tabGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0); }
+  50%       { box-shadow: 0 0 18px 4px rgba(99,102,241,0.25); }
+}
+.tab-active-glow {
+  animation: tabGlow 2s ease-in-out infinite;
+}
+
+/* Card shimmer on load */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+  background-size: 400px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Leading badge pulse */
+@keyframes crownPulse {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-2px) scale(1.05); }
+}
+.crown-badge {
+  animation: crownPulse 2s ease-in-out infinite;
+}
+
+/* Progress bar fill animation */
+@keyframes barFill {
+  from { width: 0%; }
+}
+.bar-fill {
+  animation: barFill 1s cubic-bezier(0.34,1,0.64,1) forwards;
+}
+
+/* Fade slide in */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-slide-in {
+  animation: fadeSlideIn 0.4s ease-out forwards;
+}
+
+/* Stagger helper */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.10s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.20s; }

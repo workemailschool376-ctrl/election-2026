@@ -1,0 +1,49 @@
+// Euro School Election Dashboard - Prisma Schema
+// Prisma 7.x format with prisma-client generator
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Election {
+  id         Int         @id @default(autoincrement())
+  name       String      // e.g. "School Leadership"
+  type       String      // "LEADERSHIP" | "HOUSE"
+  isVisible  Boolean     @default(true)
+  candidates Candidate[]
+  createdAt  DateTime    @default(now())
+}
+
+model House {
+  id         Int         @id @default(autoincrement())
+  name       String      // e.g. "Phoenix House"
+  color      String      // "RED" | "GREEN" | "BLUE" | "YELLOW"
+  candidates Candidate[]
+  createdAt  DateTime    @default(now())
+}
+
+model Candidate {
+  id         Int      @id @default(autoincrement())
+  name       String
+  symbolName String
+  imageUrl   String   @default("/candidates/default.png")
+  imageBytes Bytes?
+  votes      Int      @default(0)
+  role       String   // "DEPUTY" | "VICE_DEPUTY" | "CAPTAIN" | "VICE_CAPTAIN"
+  electionId Int
+  election   Election @relation(fields: [electionId], references: [id], onDelete: Cascade)
+  houseId    Int?
+  house      House?   @relation(fields: [houseId], references: [id], onDelete: SetNull)
+  createdAt  DateTime @default(now())
+}
+
+model AdminSession {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+}
