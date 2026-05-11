@@ -7,10 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "postinstall": "prisma generate",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
     "db:seed": "npx tsx prisma/seed.ts",
     "db:studio": "prisma studio",
+    "setup:turso": "npx tsx scripts/setup-turso.ts",
     "setup": "prisma migrate dev --name init && npx tsx prisma/seed.ts"
   },
   "prisma": {

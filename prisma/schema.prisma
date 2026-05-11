@@ -1,8 +1,9 @@
 // Euro School Election Dashboard - Prisma Schema
-// Prisma 7.x format with prisma-client generator
+// Supports: local SQLite (dev) + Turso LibSQL (production via Vercel)
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {

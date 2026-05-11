@@ -1,8 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
+import { PrismaLibSQL } from "@prisma/adapter-libsql";
+import { createClient } from "@libsql/client";
 
-// PrismaLibSql is a factory — pass config object, not a pre-made libsql client
-const adapter = new PrismaLibSql({ url: "file:./dev.db" });
+// TURSO_DATABASE_URL = production Turso cloud URL (set in Vercel env vars)
+// Fallback = local dev.db at project root (relative to CWD, NOT prisma/ folder)
+const url = process.env.TURSO_DATABASE_URL ?? "file:./dev.db";
+const authToken = process.env.TURSO_AUTH_TOKEN; // undefined locally — that's fine
+
+const libsql = createClient({ url, authToken });
+const adapter = new PrismaLibSQL(libsql);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {

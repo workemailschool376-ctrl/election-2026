@@ -52,7 +52,7 @@ export async function GET(
     if (candidate.imageBytes) {
       const imageBuffer = new Uint8Array(candidate.imageBytes);
       const contentType = inferContentType(imageBuffer);
-      return new NextResponse(candidate.imageBytes, {
+      return new NextResponse(imageBuffer, {
         headers: {
           "Content-Type": contentType,
           "Cache-Control": "no-store, max-age=0",
