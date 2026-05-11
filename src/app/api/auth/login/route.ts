@@ -2,7 +2,11 @@ import { cookies } from "next/headers";
 import { createSession, COOKIE_NAME } from "@/lib/auth";
 
 const ADMIN_USERNAME = "admin";
-const ADMIN_PASSWORD = "admin123";
+// Read from env var — set ADMIN_PASSWORD in Render dashboard
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "admin123";
+if (!process.env.ADMIN_PASSWORD) {
+  console.warn("⚠️  ADMIN_PASSWORD env var not set — using default 'admin123'");
+}
 const SESSION_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 export async function POST(request: Request) {
