@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY package.json package-lock.json ./
+COPY prisma ./prisma
 RUN npm ci
 
 # ── Stage 2: Build the Next.js app ───────────────────────────────────────────
